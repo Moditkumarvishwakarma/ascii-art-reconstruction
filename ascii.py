@@ -2,136 +2,1548 @@
 # Method: Run-Length Decoding (Loops & Conditions)
 # Data Format: Each row contains a list of tuples: (count, symbol)
 
-analyzed_data = [[(35,'#'),(3,'%'),(3,'#'),(5,'%'),(3,'#'),(31,'*')],
-                 #ROW TWO
-                [(35,'#'),(1,'%'),(8,'@'),(5,'%'),(3,'#'),(5,'*'),(2,'#'),(21,'*')],
-                #ROW THREE
-                [(2, '*'), (22, '#'), (1, '%'), (2, '#'), (1, '%'), (3, '#'), (1, '%'), (1, '#'), (7, '%'), (7, '@'), (4, '%'), (4, '#'), (5, '%'), (1, '#'), (19, '*')],
-                #ROW FOUR
-                [(6, '*'), (15, '#'), (13, '%'), (16, '@'), (5, '%'), (1, '@'), (6, '%'), (1, '#'), (17, '*')],
-                  #ROW FIVE
-                [(9, '*'), (1, '#'), (2, '*'), (7, '#'), (5, '%'), (8, '@'), (1, '%'), (30, '@'), (1, '%'), (1, '#'), (15, '*')],
-                #ROW SIX
-                [(15, '*'), (3, '#'), (2, '%'), (11, '@'), (1, '%'), (19, '@'), (1, '%'), (2, '@'), (2, '%'), (11, '@'), (13, '*')],
-                #ROW SEVEN
-                [(3, '+'), (1, '*'), (1, '+'), (9, '*'), (1, '#'), (6, '%'), (46, '@'), (1, '%'), (12, '*')],
-                #ROW EIGHT
-                [(6, '+'), (5, '*'), (1, '#'), (6, '%'), (1, '@'), (1, '%'), (47, '@'), (2, '%'), (1, '#'), (10, '*')],
-                #ROW NINE
-                [(9, '+'), (1, '*'), (8, '%'), (1, '@'), (1, '%'), (4, '@'), (2, '%'), (42, '@'), (3, '%'), (9, '*')],
-                #ROW 10
-                [(9, '+'), (1, '*'), (2, '%'), (1, '#'), (4, '%'), (1, '@'), (3, '%'), (1, '@'), (1, '%'), (1, '@'), (1, '%'), (44, '@'), (2, '%'), (1, '#'), (8, '*')],
-                #ROW 11
-                [(10, '+'), (2, '#'), (1, '%'), (8, '@'), (3, '%'), (47, '@'), (2, '%'), (7, '*')],
-                #ROW 12
-                [(8, '+'), (1, '*'), (4, '%'), (59, '@'), (1, '%'), (2, '#'), (5, '*')],
-                #ROW 13
-                [(7, '+'), (1, '*'), (1, '#'), (2, '%'), (1, '#'), (1, '%'), (59, '@'), (3, '%'), (1, '#'), (4, '*')],
-                #ROW 14
-                [(4, '+'), (3, '*'), (1, '#'), (4, '%'), (21, '@'), (1, '%'), (40, '@'), (1, '%'), (2, '#'), (3, '*')],
-                #ROW 15
-                [(6, '*'), (2, '#'), (2, '%'), (65, '@'), (2, '%'), (1, '#'), (2, '*')],
-                #ROW 16
-                [(2, '*'), (2, '%'), (1, '#'), (4, '%'), (32, '@'), (16, '%'), (20, '@'), (1, '%'), (1, '#'), (1, '*')],
-                #ROW 17
-                [(1, '*'), (1, '#'), (6, '%'), (10, '@'), (1, '%'), (11, '@'), (1, '%'), (3, '#'), (4, '%'), (13, '#'), (1, '%'), (5, '#'), (2, '%'), (18, '@'), (1, '%'), (1, '#'), (1, '*')],
-                #ROW 18
-                [(5, '%'), (1, '@'), (3, '%'), (18, '@'), (2, '#'), (1, '%'), (1, '#'), (2, '*'), (3, '+'), (5, '*'), (10, '#'), (7, '*'), (2, '#'), (2, '%'), (16, '@'), (1, '%'), (1, '#')],
-                #ROW 19
-                [(3, '%'), (23, '@'), (1, '%'), (3, '#'), (1, '+'), (3, '='), (1, '+'), (3, '='), (3, '+'), (20, '*'), (2, '#'), (2, '%'), (13, '@'), (2, '%')],
-                #ROW 20
-                [(25, '@'), (1, '%'), (1, '*'), (1, '+'), (1, '*'), (1, '+'), (9, '='), (6, '+'), (1, '*'), (2, '#'), (3, '*'), (14, '#'), (1, '%'), (13, '@'), (1, '%')],
-                #ROW 21
-                [(24, '@'), (1, '%'), (1, '*'), (1, '+'), (1, '*'), (2, '+'), (2, '='), (4, '+'), (5, '*'), (4, '#'), (2, '%'), (1, '#'), (1, '+'), (1, '*'), (1, '#'), (2, '%'), (12, '@'), (2, '%'), (13, '@')],
-                #ROW 22
-                [(1, '%'), (22, '@'), (1, '%'), (2, '#'), (1, '*'), (2, '+'), (1, '*'), (2, '#'), (5, '%'), (2, '@'), (1, '%'), (6, '@'), (1, '%'), (3, '#'), (2, '%'), (15, '@'), (1, '%'), (12, '@')],
-                #ROW 23
-                [(1, '@'), (1, '%'), (19, '@'), (1, '%'), (1, '#'), (1, '*'), (3, '+'), (1, '*'), (1, '#'), (17, '%'), (1, '*'), (2, '+'), (1, '*'), (1, '#'), (2, '%'), (5, '@'), (2, '%'), (2, '#'), (3, '%'), (2, '@'), (1, '%'), (12, '@')],
-                #ROW 24
-                [(1, '%'), (19, '@'), (1, '%'), (1, '#'), (1, '*'), (1, '+'), (2, '='), (1, '+'), (4, '*'), (2, '+'), (2, '*'), (1, '#'), (7, '%'), (1, '#'), (1, '*'), (1, '+'), (1, '='), (1, '-'), (2, '='), (1, '+'), (1, '#'), (3, '%'), (8, '@'), (1, '%'), (2, '#'), (1, '%'), (2, '#'), (11, '@')],
-                #ROW 25
-                [(1, '%'), (18, '@'), (1, '%'), (1, '#'), (1, '+'), (4, '='), (1, '+'), (1, '*'), (2, '+'), (1, '*'), (1, '#'), (4, '%'), (3, '@'), (3, '%'), (1, '*'), (1, '+'), (3, '='), (2, '-'), (2, '='), (1, '*'), (2, '#'), (5, '%'), (6, '@'), (1, '%'), (3, '#'), (11, '@')],
-                #ROW 26
-                [(19, '@'), (1, '%'), (1, '*'), (4, '='), (3, '+'), (1, '*'), (3, '#'), (4, '*'), (5, '#'), (1, '*'), (1, '+'), (3, '='), (4, '-'), (2, '='), (1, '*'), (10, '#'), (2, '*'), (3, '#'), (1, '*'), (1, '%'), (10, '@')],
-                #ROW 27
-                [(2, '%'), (16, '@'), (1, '%'), (1, '#'), (1, '+'), (3, '='), (5, '-'), (2, ':'), (2, '-'), (1, '='), (2, '+'), (2, '*'), (2, '+'), (2, '='), (9, '-'), (1, '='), (1, '+'), (10, '*'), (5, '+'), (2, '*'), (10, '@')],
-                #ROW 28
-                [(17, '@'), (2, '%'), (1, '*'), (2, '='), (3, '-'), (2, ':'), (8, '-'), (5, '='), (11, '-'), (2, '='), (2, '+'), (7, '*'), (7, '+'), (1, '*'), (1, '%'), (9, '@')],
-                #ROW 29
-                [(12, '@'), (1, '%'), (3, '@'), (2, '%'), (1, '#'), (1, '+'), (2, '='), (3, '-'), (4, ':'), (6, '-'), (2, '='), (2, '-'), (1, '='), (8, '-'), (2, '='), (1, '+'), (9, '*'), (9, '+'), (1, '*'), (1, '#'), (1, '%'), (7, '@'), (1, '%')],
-                #ROW 30
-                [(1, '%'), (6, '@'), (3, '%'), (2, '#'), (2, '%'), (1, '#'), (3, '%'), (1, '#'), (4, '='), (5, '-'), (5, ':'), (6, '-'), (3, '='), (2, '-'), (1, '+'), (1, '*'), (1, '#'), (1, '%'), (5, '#'), (3, '%'), (1, '#'), (7, '*'), (3, '+'), (3, '*'), (1, '#'), (2, '%'), (4, '@'), (1, '#'), (1, '*'), (1, '+')],
-                #ROW 31
-                [(1, '%'), (6, '@'), (1, '#'), (1, '%'), (1, '*'), (2, '+'), (4, '#'), (2, '*'), (1, '+'), (6, '='), (14, '-'), (5, '='), (1, '*'), (1, '#'), (1, '*'), (2, '+'), (1, '*'), (1, '#'), (1, '%'), (3, '#'), (1, '%'), (1, '#'), (13, '*'), (3, '#'), (3, '@'), (1, '%'), (1, '*'), (1, '='), (1, '+')],
-                #ROW 32
-                [(2, '%'), (5, '@'), (2, '#'), (1, '*'), (1, '+'), (1, '='), (1, '*'), (1, '#'), (1, '%'), (1, '#'), (1, '+'), (3, '='), (1, '+'), (9, '='), (9, '-'), (1, '='), (5, '-'), (4, '='), (21, '*'), (1, '#'), (1, '%'), (1, '#'), (3, '%'), (1, '#'), (1, '='), (2, '-')],
-                #ROW 33
-                [(2, '%'), (5, '@'), (1, '%'), (2, '*'), (1, '+'), (1, '='), (1, '*'), (2, '#'), (1, '*'), (2, '-'), (7, '='), (1, '+'), (5, '='), (14, '-'), (4, '='), (1, '+'), (2, '*'), (2, '+'), (4, '*'), (2, '+'), (9, '*'), (4, '#'), (2, '%'), (3, '='), (2, '-')],
-                #ROW 34
-                [(1, '#'), (3, '%'), (3, '@'), (2, '%'), (1, '+'), (1, '*'), (1, '='), (2, '#'), (1, '*'), (1, '='), (1, '+'), (14, '='), (12, '-'), (3, '='), (2, '-'), (1, '='), (4, '+'), (1, '*'), (1, '#'), (2, '*'), (1, '+'), (14, '*'), (3, '#'), (1, '-'), (1, ':'), (3, '-')],
-                #ROW 35
-                [(4, '%'), (3, '@'), (3, '%'), (1, '+'), (1, '*'), (2, '+'), (17, '='), (13, '-'), (1, '+'), (4, '*'), (4, '#'), (1, '%'), (5, '#'), (13, '*'), (1, '+'), (2, '%'), (2, '+'), (1, '*'), (1, '+'), (1, ':')],
-                #ROW 36
-                [(5, '%'), (2, '@'), (4, '%'), (1, '+'), (2, '='), (2, '-'), (2, '='), (1, '-'), (11, '='), (8, '-'), (2, '='), (2, '+'), (1, '*'), (5, '#'), (1, '*'), (7, '#'), (4, '%'), (2, '#'), (8, '*'), (1, '+'), (1, '*'), (1, '#'), (3, '%'), (1, '#'), (1, '='), (1, '-'), (1, ':')],
-                #ROW 37
-                [(3, '%'), (6, '@'), (3, '%'), (1, '#'), (1, '+'), (1, '='), (4, '+'), (2, '*'), (1, '+'), (7, '='), (8, '-'), (1, '='), (2, '+'), (3, '*'), (3, '='), (2, '-'), (3, '='), (4, '+'), (5, '*'), (3, '#'), (6, '*'), (1, '#'), (1, '*'), (1, '#'), (5, '%'), (1, '*'), (1, '+'), (1, '*')],
-                #ROW 38
-                [(5, '%'), (6, '@'), (6, '%'), (4, '#'), (1, '*'), (1, '+'), (4, '='), (1, '-'), (1, '='), (6, '-'), (2, '='), (1, '+'), (2, '='), (3, '-'), (3, '='), (2, '+'), (1, '*'), (1, '#'), (4, '%'), (5, '#'), (4, '*'), (1, '#'), (5, '*'), (2, '%'), (2, '@'), (5, '%'), (2, '#')],
-                #ROW 39
-                [(1, '#'), (2, '%'), (7, '@'), (1, '%'), (3, '@'), (5, '%'), (2, '#'), (1, '*'), (2, '+'), (5, '='), (4, '-'), (6, '='), (1, '-'), (2, '='), (4, '+'), (1, '*'), (13, '#'), (2, '*'), (3, '#'), (3, '*'), (1, '#'), (4, '@'), (4, '%'), (1, '#'), (1, '='), (1, '-')],
-                #ROW 40
-                [(1, '*'), (3, '%'), (13, '@'), (2, '%'), (1, '*'), (6, '+'), (25, '='), (3, '+'), (6, '*'), (1, '#'), (2, '*'), (3, '#'), (1, '*'), (1, '#'), (1, '%'), (4, '@'), (2, '%'), (1, '#'), (1, '='), (2, '-'), (1, ':')],
-                #ROW 41
-                [(1, '*'), (1, '#'), (2, '%'), (14, '@'), (1, '%'), (1, '#'), (10, '+'), (11, '='), (8, '-'), (1, '='), (3, '+'), (3, '*'), (2, '+'), (4, '*'), (5, '#'), (1, '%'), (5, '@'), (2, '%'), (1, '#'), (1, '+'), (1, '='), (1, '-'), (1, ':')],
-                #ROW 42
-                [(1, '*'), (1, '#'), (3, '%'), (13, '@'), (2, '%'), (1, '*'), (11, '+'), (1, '='), (1, '+'), (14, '='), (2, '+'), (4, '*'), (1, '#'), (3, '*'), (1, '#'), (2, '*'), (5, '#'), (1, '*'), (5, '@'), (3, '%'), (1, '#'), (1, '+'), (2, '-'), (1, ':')],
-                #ROW 43
-                [(2, '*'), (3, '%'), (13, '@'), (2, '%'), (1, '*'), (23, '+'), (5, '*'), (16, '#'), (2, '*'), (5, '@'), (3, '%'), (1, '#'), (1, '='), (2, '-'), (1, ':')],
-                #ROW 44
-                [(1, '+'), (1, '*'), (1, '#'), (2, '%'), (14, '@'), (1, '%'), (1, '*'), (12, '+'), (3, '*'), (1, '+'), (1, '*'), (1, '+'), (5, '*'), (20, '#'), (1, '*'), (1, '#'), (1, '*'), (1, '%'), (4, '@'), (2, '%'), (1, '#'), (1, '*'), (4, '-')],
-                #ROW 45
-                [(4, '*'), (1, '#'), (1, '%'), (13, '@'), (1, '%'), (1, '*'), (3, '+'), (5, '='), (6, '+'), (7, '*'), (22, '#'), (3, '*'), (1, '%'), (1, '@'), (5, '%'), (1, '#'), (1, '='), (4, '-')],
-                #ROW 46
-                [(5, '*'), (2, '#'), (1, '%'), (11, '@'), (1, '%'), (1, '#'), (4, '+'), (5, '='), (5, '+'), (7, '*'), (7, '#'), (1, '%'), (14, '#'), (3, '*'), (3, '#'), (1, '*'), (1, '+'), (8, '=')],
-                #ROW 47
-                [(4, '*'), (4, '#'), (1, '%'), (9, '@'), (2, '%'), (1, '#'), (2, '+'), (3, '='), (1, '+'), (4, '='), (4, '+'), (6, '*'), (23, '#'), (3, '*'), (5, '+'), (2, '='), (1, '+'), (5, '=')],
-                #ROW 48
-                [(3, '*'), (7, '#'), (1, '%'), (2, '@'), (4, '%'), (3, '#'), (1, '*'), (1, '+'), (14, '='), (2, '+'), (3, '*'), (9, '#'), (2, '%'), (11, '#'), (4, '*'), (13, '+')],
-                #ROW 49
-                [(3, '*'), (8, '#'), (3, '%'), (1, '#'), (2, '-'), (1, '#'), (1, '%'), (1, '#'), (1, '+'), (18, '='), (2, '+'), (2, '*'), (3, '#'), (7, '%'), (10, '#'), (3, '*'), (1, '+'), (1, '='), (1, '-'), (11, '+')],
-                #ROW 50
-                [(3, '*'), (10, '#'), (1, '*'), (2, '.'), (1, '='), (1, '#'), (1, '+'), (20, '='), (2, '+'), (2, '*'), (3, '#'), (5, '%'), (11, '#'), (4, '*'), (2, '+'), (4, ':'), (2, '-'), (6, '+')],
-                #ROW 51
-                [(9, '*'), (1, '='), (2, ':'), (4, '.'), (1, '-'), (1, '+'), (6, '='), (5, '-'), (9, '='), (2, '+'), (3, '*'), (17, '#'), (6, '*'), (2, '+'), (9, ':'), (1, '='), (1, '-'), (1, '=')],
-                #ROW 52
-                [(3, '*'), (1, '+'), (1, '-'), (1, ':'), (11, '.'), (2, '='), (2, '-'), (2, '='), (9, '-'), (6, '='), (3, '+'), (2, '*'), (15, '#'), (8, '*'), (1, '+'), (1, '-'), (2, ':'), (1, '.'), (3, ':'), (1, '-'), (1, ':'), (1, '.'), (2, ':'), (1, '-')]]
+def generate_handmade_ascii():
+    for row in range(1, 53):
+        line = ""
 
-   
+        for column in range(80):
+            char = " "   # default space (IMPORTANT)
 
-def reconstruct_ascii_art():
-    print("Reconstructing analyzed image data using loops...")
-    
-    # LOOP 1: Going through each row in the analyzed data
-    for row_data in analyzed_data:
-        
-        line_string = ""
-        
-        # LOOP 2: Going through each (count, symbol) group in the row
-        for data_group in row_data:
-            
-            # Extracting the count and the symbol from the tuple
-            count = data_group[0]
-            symbol = data_group[1]
-            
-            # LOOP 3: Adding the symbol 'count' times to the string
-            for i in range(count):
-                
-                # CONDITION: Only adding if count is valid 
-                if count > 0:
-                    line_string = line_string + symbol
-                    
-       
-        print(line_string)
+            # ---------- ROW 1 ----------
+            if row == 1:
+                if 0 <= column <= 34:
+                    char = "#"
+                elif 35 <= column <= 37:
+                    char = "%"
+                elif 38 <= column <= 40:
+                    char = "#"
+                elif 41 <= column <= 45:
+                    char = "%"
+                elif 46 <= column <= 48:
+                    char = "#"
+                elif 49 <= column <= 79:
+                    char = "*"
 
-# OUTPUT
-reconstruct_ascii_art()
+            # ---------- ROW 2 ----------
+            elif row == 2:
+                if 0 <= column <= 34:
+                    char = "#"
+                elif column == 35:
+                    char = "%"
+                elif 36 <= column <= 43:
+                    char = "@"
+                elif 44 <= column <= 48:
+                    char = "%"
+                elif 49 <= column <= 51:
+                    char = "#"
+                elif 52 <= column <= 56:
+                    char = "*"
+                elif 57 <= column <= 58:
+                    char = "#"
+                elif 59 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 3 ----------
+            elif row == 3:
+                if 0 <= column <= 1:
+                    char = "*"
+                elif 2 <= column <= 23:
+                    char = "#"
+                elif column == 24:
+                    char = "%"
+                elif 25 <= column <= 26:
+                    char = "#"
+                elif column == 27:
+                    char = "%"
+                elif 28 <= column <= 30:
+                    char = "#"
+                elif column == 31:
+                    char = "%"
+                elif column == 32:
+                    char = "#"
+                elif 33 <= column <= 39:
+                    char = "%"
+                elif 40 <= column <= 46:
+                    char = "@"
+                elif 47 <= column <= 50:
+                    char = "%"
+                elif 51 <= column <= 54:
+                    char = "#"
+                elif 55 <= column <= 59:
+                    char = "%"
+                elif column == 60:
+                    char = "#"
+                elif 61 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 4 ----------
+            elif row == 4:
+                if 0 <= column <= 5:
+                    char = "*"
+                elif 6 <= column <= 20:
+                    char = "#"
+                elif 21 <= column <= 33:
+                    char = "%"
+                elif 34 <= column <= 49:
+                    char = "@"
+                elif 50 <= column <= 54:
+                    char = "%"
+                elif column == 55:
+                    char = "@"
+                elif 56 <= column <= 61:
+                    char = "%"
+                elif column == 62:
+                    char = "#"
+                elif 63 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 5 ----------
+            elif row == 5:
+                if 0 <= column <= 8:
+                    char = "*"
+                elif column == 9:
+                    char = "#"
+                elif 10 <= column <= 11:
+                    char = "*"
+                elif 12 <= column <= 18:
+                    char = "#"
+                elif 19 <= column <= 23:
+                    char = "%"
+                elif 24 <= column <= 31:
+                    char = "@"
+                elif column == 32:
+                    char = "%"
+                elif 33 <= column <= 62:
+                    char = "@"
+                elif column == 63:
+                    char = "%"
+                elif column == 64:
+                    char = "#"
+                elif 65 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 6 ----------
+            elif row == 6:
+                if 0 <= column <= 14:
+                    char = "*"
+                elif 15 <= column <= 17:
+                    char = "#"
+                elif 18 <= column <= 19:
+                    char = "%"
+                elif 20 <= column <= 30:
+                    char = "@"
+                elif column == 31:
+                    char = "%"
+                elif 32 <= column <= 50:
+                    char = "@"
+                elif column == 51:
+                    char = "%"
+                elif 52 <= column <= 53:
+                    char = "@"
+                elif 54 <= column <= 55:
+                    char = "%"
+                elif 56 <= column <= 66:
+                    char = "@"
+                elif 67 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 7 ----------
+            elif row == 7:
+                if 0 <= column <= 2:
+                    char = "+"
+                elif column == 3:
+                    char = "*"
+                elif column == 4:
+                    char = "+"
+                elif 5 <= column <= 13:
+                    char = "*"
+                elif column == 14:
+                    char = "#"
+                elif 15 <= column <= 20:
+                    char = "%"
+                elif 21 <= column <= 66:
+                    char = "@"
+                elif column == 67:
+                    char = "%"
+                elif 68 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 8 ----------
+            elif row == 8:
+                if 0 <= column <= 5:
+                    char = "+"
+                elif 6 <= column <= 10:
+                    char = "*"
+                elif column == 11:
+                    char = "#"
+                elif 12 <= column <= 17:
+                    char = "%"
+                elif column == 18:
+                    char = "@"
+                elif column == 19:
+                    char = "%"
+                elif 20 <= column <= 66:
+                    char = "@"
+                elif 67 <= column <= 68:
+                    char = "%"
+                elif column == 69:
+                    char = "#"
+                elif 70 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 9 ----------
+            elif row == 9:
+                if 0 <= column <= 8:
+                    char = "+"
+                elif column == 9:
+                    char = "*"
+                elif 10 <= column <= 17:
+                    char = "%"
+                elif column == 18:
+                    char = "@"
+                elif column == 19:
+                    char = "%"
+                elif 20 <= column <= 23:
+                    char = "@"
+                elif 24 <= column <= 25:
+                    char = "%"
+                elif 26 <= column <= 67:
+                    char = "@"
+                elif 68 <= column <= 70:
+                    char = "%"
+                elif 71 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 10 ----------
+            elif row == 10:
+                if 0 <= column <= 8:
+                    char = "+"
+                elif column == 9:
+                    char = "*"
+                elif 10 <= column <= 11:
+                    char = "%"
+                elif column == 12:
+                    char = "#"
+                elif 13 <= column <= 16:
+                    char = "%"
+                elif column == 17:
+                    char = "@"
+                elif 18 <= column <= 20:
+                    char = "%"
+                elif column == 21:
+                    char = "@"
+                elif column == 22:
+                    char = "%"
+                elif column == 23:
+                    char = "@"
+                elif column == 24:
+                    char = "%"
+                elif 25 <= column <= 68:
+                    char = "@"
+                elif 69 <= column <= 70:
+                    char = "%"
+                elif column == 71:
+                    char = "#"
+                elif 72 <= column <= 79:
+                    char = "*"
+
+                        # ---------- ROW 11 ----------
+            elif row == 11:
+                if 0 <= column <= 9:
+                    char = "+"
+                elif 10 <= column <= 11:
+                    char = "#"
+                elif column == 12:
+                    char = "%"
+                elif 13 <= column <= 20:
+                    char = "@"
+                elif 21 <= column <= 23:
+                    char = "%"
+                elif 24 <= column <= 70:
+                    char = "@"
+                elif 71 <= column <= 72:
+                    char = "%"
+                elif 73 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 12 ----------
+            elif row == 12:
+                if 0 <= column <= 7:
+                    char = "+"
+                elif column == 8:
+                    char = "*"
+                elif 9 <= column <= 12:
+                    char = "%"
+                elif 13 <= column <= 71:
+                    char = "@"
+                elif column == 72:
+                    char = "%"
+                elif 73 <= column <= 74:
+                    char = "#"
+                elif 75 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 13 ----------
+            elif row == 13:
+                if 0 <= column <= 6:
+                    char = "+"
+                elif column == 7:
+                    char = "*"
+                elif column == 8:
+                    char = "#"
+                elif 9 <= column <= 10:
+                    char = "%"
+                elif column == 11:
+                    char = "#"
+                elif column == 12:
+                    char = "%"
+                elif 13 <= column <= 71:
+                    char = "@"
+                elif 72 <= column <= 74:
+                    char = "%"
+                elif column == 75:
+                    char = "#"
+                elif 76 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 14 ----------
+            elif row == 14:
+                if 0 <= column <= 3:
+                    char = "+"
+                elif 4 <= column <= 6:
+                    char = "*"
+                elif column == 7:
+                    char = "#"
+                elif 8 <= column <= 11:
+                    char = "%"
+                elif 12 <= column <= 32:
+                    char = "@"
+                elif column == 33:
+                    char = "%"
+                elif 34 <= column <= 73:
+                    char = "@"
+                elif column == 74:
+                    char = "%"
+                elif 75 <= column <= 76:
+                    char = "#"
+                elif 77 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 15 ----------
+            elif row == 15:
+                if 0 <= column <= 5:
+                    char = "*"
+                elif 6 <= column <= 7:
+                    char = "#"
+                elif 8 <= column <= 9:
+                    char = "%"
+                elif 10 <= column <= 74:
+                    char = "@"
+                elif 75 <= column <= 76:
+                    char = "%"
+                elif column == 77:
+                    char = "#"
+                elif 78 <= column <= 79:
+                    char = "*"
+
+            # ---------- ROW 16 ----------
+            elif row == 16:
+                if 0 <= column <= 1:
+                    char = "*"
+                elif 2 <= column <= 3:
+                    char = "%"
+                elif column == 4:
+                    char = "#"
+                elif 5 <= column <= 8:
+                    char = "%"
+                elif 9 <= column <= 40:
+                    char = "@"
+                elif 41 <= column <= 56:
+                    char = "%"
+                elif 57 <= column <= 76:
+                    char = "@"
+                elif column == 77:
+                    char = "%"
+                elif column == 78:
+                    char = "#"
+                elif column == 79:
+                    char = "*"
+
+            # ---------- ROW 17 ----------
+            elif row == 17:
+                if column == 0:
+                    char = "*"
+                elif column == 1:
+                    char = "#"
+                elif 2 <= column <= 7:
+                    char = "%"
+                elif 8 <= column <= 17:
+                    char = "@"
+                elif column == 18:
+                    char = "%"
+                elif 19 <= column <= 29:
+                    char = "@"
+                elif column == 30:
+                    char = "%"
+                elif 31 <= column <= 33:
+                    char = "#"
+                elif 34 <= column <= 37:
+                    char = "%"
+                elif 38 <= column <= 50:
+                    char = "#"
+                elif column == 51:
+                    char = "%"
+                elif 52 <= column <= 56:
+                    char = "#"
+                elif 57 <= column <= 58:
+                    char = "%"
+                elif 59 <= column <= 76:
+                    char = "@"
+                elif column == 77:
+                    char = "%"
+                elif column == 78:
+                    char = "#"
+                elif column == 79:
+                    char = "*"
+
+            # ---------- ROW 18 ----------
+            elif row == 18:
+                if 0 <= column <= 4:
+                    char = "%"
+                elif column == 5:
+                    char = "@"
+                elif 6 <= column <= 8:
+                    char = "%"
+                elif 9 <= column <= 26:
+                    char = "@"
+                elif 27 <= column <= 28:
+                    char = "#"
+                elif column == 29:
+                    char = "%"
+                elif column == 30:
+                    char = "#"
+                elif 31 <= column <= 32:
+                    char = "*"
+                elif 33 <= column <= 35:
+                    char = "+"
+                elif 36 <= column <= 40:
+                    char = "*"
+                elif 41 <= column <= 50:
+                    char = "#"
+                elif 51 <= column <= 57:
+                    char = "*"
+                elif 58 <= column <= 59:
+                    char = "#"
+                elif 60 <= column <= 61:
+                    char = "%"
+                elif 62 <= column <= 77:
+                    char = "@"
+                elif column == 78:
+                    char = "%"
+                elif column == 79:
+                    char = "#"
+
+            # ---------- ROW 19 ----------
+            elif row == 19:
+                if 0 <= column <= 2:
+                    char = "%"
+                elif 3 <= column <= 25:
+                    char = "@"
+                elif column == 26:
+                    char = "%"
+                elif 27 <= column <= 29:
+                    char = "#"
+                elif column == 30:
+                    char = "+"
+                elif 31 <= column <= 33:
+                    char = "="
+                elif column == 34:
+                    char = "+"
+                elif 35 <= column <= 37:
+                    char = "="
+                elif 38 <= column <= 40:
+                    char = "+"
+                elif 41 <= column <= 60:
+                    char = "*"
+                elif 61 <= column <= 62:
+                    char = "#"
+                elif 63 <= column <= 64:
+                    char = "%"
+                elif 65 <= column <= 77:
+                    char = "@"
+                elif 78 <= column <= 79:
+                    char = "%"
+
+            # ---------- ROW 20 ----------
+            elif row == 20:
+                if 0 <= column <= 24:
+                    char = "@"
+                elif column == 25:
+                    char = "%"
+                elif column == 26:
+                    char = "*"
+                elif column == 27:
+                    char = "+"
+                elif column == 28:
+                    char = "*"
+                elif column == 29:
+                    char = "+"
+                elif 30 <= column <= 38:
+                    char = "="
+                elif 39 <= column <= 44:
+                    char = "+"
+                elif column == 45:
+                    char = "*"
+                elif 46 <= column <= 47:
+                    char = "#"
+                elif 48 <= column <= 50:
+                    char = "*"
+                elif 51 <= column <= 64:
+                    char = "#"
+                elif column == 65:
+                    char = "%"
+                elif 66 <= column <= 78:
+                    char = "@"
+                elif column == 79:
+                    char = "%"
+
+                        # ---------- ROW 21 ----------
+            elif row == 21:
+                if 0 <= column <= 23:
+                    char = "@"
+                elif column == 24:
+                    char = "%"
+                elif column == 25:
+                    char = "*"
+                elif column == 26:
+                    char = "+"
+                elif column == 27:
+                    char = "*"
+                elif 28 <= column <= 29:
+                    char = "+"
+                elif 30 <= column <= 31:
+                    char = "="
+                elif 32 <= column <= 35:
+                    char = "+"
+                elif 36 <= column <= 40:
+                    char = "*"
+                elif 41 <= column <= 44:
+                    char = "#"
+                elif 45 <= column <= 46:
+                    char = "%"
+                elif column == 47:
+                    char = "#"
+                elif column == 48:
+                    char = "+"
+                elif column == 49:
+                    char = "*"
+                elif column == 50:
+                    char = "#"
+                elif 51 <= column <= 52:
+                    char = "%"
+                elif 53 <= column <= 64:
+                    char = "@"
+                elif 65 <= column <= 66:
+                    char = "%"
+                elif 67 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 22 ----------
+            elif row == 22:
+                if column == 0:
+                    char = "%"
+                elif 1 <= column <= 22:
+                    char = "@"
+                elif column == 23:
+                    char = "%"
+                elif 24 <= column <= 25:
+                    char = "#"
+                elif column == 26:
+                    char = "*"
+                elif 27 <= column <= 28:
+                    char = "+"
+                elif column == 29:
+                    char = "*"
+                elif 30 <= column <= 31:
+                    char = "#"
+                elif 32 <= column <= 36:
+                    char = "%"
+                elif 37 <= column <= 38:
+                    char = "@"
+                elif column == 39:
+                    char = "%"
+                elif 40 <= column <= 45:
+                    char = "@"
+                elif column == 46:
+                    char = "%"
+                elif 47 <= column <= 49:
+                    char = "#"
+                elif 50 <= column <= 51:
+                    char = "%"
+                elif 52 <= column <= 66:
+                    char = "@"
+                elif column == 67:
+                    char = "%"
+                elif 68 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 23 ----------
+            elif row == 23:
+                if column == 0:
+                    char = "@"
+                elif column == 1:
+                    char = "%"
+                elif 2 <= column <= 20:
+                    char = "@"
+                elif column == 21:
+                    char = "%"
+                elif column == 22:
+                    char = "#"
+                elif column == 23:
+                    char = "*"
+                elif 24 <= column <= 26:
+                    char = "+"
+                elif column == 27:
+                    char = "*"
+                elif column == 28:
+                    char = "#"
+                elif 29 <= column <= 45:
+                    char = "%"
+                elif column == 46:
+                    char = "*"
+                elif 47 <= column <= 48:
+                    char = "+"
+                elif column == 49:
+                    char = "*"
+                elif column == 50:
+                    char = "#"
+                elif 51 <= column <= 52:
+                    char = "%"
+                elif 53 <= column <= 57:
+                    char = "@"
+                elif 58 <= column <= 59:
+                    char = "%"
+                elif 60 <= column <= 61:
+                    char = "#"
+                elif 62 <= column <= 64:
+                    char = "%"
+                elif 65 <= column <= 66:
+                    char = "@"
+                elif column == 67:
+                    char = "%"
+                elif 68 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 24 ----------
+            elif row == 24:
+                if column == 0:
+                    char = "%"
+                elif 1 <= column <= 19:
+                    char = "@"
+                elif column == 20:
+                    char = "%"
+                elif column == 21:
+                    char = "#"
+                elif column == 22:
+                    char = "*"
+                elif column == 23:
+                    char = "+"
+                elif 24 <= column <= 25:
+                    char = "="
+                elif column == 26:
+                    char = "+"
+                elif 27 <= column <= 30:
+                    char = "*"
+                elif 31 <= column <= 32:
+                    char = "+"
+                elif 33 <= column <= 34:
+                    char = "*"
+                elif column == 35:
+                    char = "#"
+                elif 36 <= column <= 42:
+                    char = "%"
+                elif column == 43:
+                    char = "#"
+                elif column == 44:
+                    char = "*"
+                elif column == 45:
+                    char = "+"
+                elif column == 46:
+                    char = "="
+                elif column == 47:
+                    char = "-"
+                elif 48 <= column <= 49:
+                    char = "="
+                elif column == 50:
+                    char = "+"
+                elif column == 51:
+                    char = "#"
+                elif 52 <= column <= 54:
+                    char = "%"
+                elif 55 <= column <= 62:
+                    char = "@"
+                elif column == 63:
+                    char = "%"
+                elif 64 <= column <= 65:
+                    char = "#"
+                elif column == 66:
+                    char = "%"
+                elif 67 <= column <= 68:
+                    char = "#"
+                elif 69 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 25 ----------
+            elif row == 25:
+                if column == 0:
+                    char = "%"
+                elif 1 <= column <= 18:
+                    char = "@"
+                elif column == 19:
+                    char = "%"
+                elif column == 20:
+                    char = "#"
+                elif column == 21:
+                    char = "+"
+                elif 22 <= column <= 25:
+                    char = "="
+                elif column == 26:
+                    char = "+"
+                elif column == 27:
+                    char = "*"
+                elif 28 <= column <= 29:
+                    char = "+"
+                elif column == 30:
+                    char = "*"
+                elif column == 31:
+                    char = "#"
+                elif 32 <= column <= 35:
+                    char = "%"
+                elif 36 <= column <= 38:
+                    char = "@"
+                elif 39 <= column <= 41:
+                    char = "%"
+                elif column == 42:
+                    char = "*"
+                elif column == 43:
+                    char = "+"
+                elif 44 <= column <= 46:
+                    char = "="
+                elif 47 <= column <= 48:
+                    char = "-"
+                elif 49 <= column <= 50:
+                    char = "="
+                elif column == 51:
+                    char = "*"
+                elif 52 <= column <= 53:
+                    char = "#"
+                elif 54 <= column <= 58:
+                    char = "%"
+                elif 59 <= column <= 64:
+                    char = "@"
+                elif column == 65:
+                    char = "%"
+                elif 66 <= column <= 68:
+                    char = "#"
+                elif 69 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 26 ----------
+            elif row == 26:
+                if 0 <= column <= 18:
+                    char = "@"
+                elif column == 19:
+                    char = "%"
+                elif column == 20:
+                    char = "*"
+                elif 21 <= column <= 24:
+                    char = "="
+                elif 25 <= column <= 27:
+                    char = "+"
+                elif column == 28:
+                    char = "*"
+                elif 29 <= column <= 31:
+                    char = "#"
+                elif 32 <= column <= 35:
+                    char = "*"
+                elif 36 <= column <= 40:
+                    char = "#"
+                elif column == 41:
+                    char = "*"
+                elif column == 42:
+                    char = "+"
+                elif 43 <= column <= 45:
+                    char = "="
+                elif 46 <= column <= 49:
+                    char = "-"
+                elif 50 <= column <= 51:
+                    char = "="
+                elif column == 52:
+                    char = "*"
+                elif 53 <= column <= 62:
+                    char = "#"
+                elif 63 <= column <= 64:
+                    char = "*"
+                elif 65 <= column <= 67:
+                    char = "#"
+                elif column == 68:
+                    char = "*"
+                elif column == 69:
+                    char = "%"
+                elif 70 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 27 ----------
+            elif row == 27:
+                if 0 <= column <= 1:
+                    char = "%"
+                elif 2 <= column <= 17:
+                    char = "@"
+                elif column == 18:
+                    char = "%"
+                elif column == 19:
+                    char = "#"
+                elif column == 20:
+                    char = "+"
+                elif 21 <= column <= 23:
+                    char = "="
+                elif 24 <= column <= 28:
+                    char = "-"
+                elif 29 <= column <= 30:
+                    char = ":"
+                elif 31 <= column <= 32:
+                    char = "-"
+                elif column == 33:
+                    char = "="
+                elif 34 <= column <= 35:
+                    char = "+"
+                elif 36 <= column <= 37:
+                    char = "*"
+                elif 38 <= column <= 39:
+                    char = "+"
+                elif 40 <= column <= 41:
+                    char = "="
+                elif 42 <= column <= 50:
+                    char = "-"
+                elif column == 51:
+                    char = "="
+                elif column == 52:
+                    char = "+"
+                elif 53 <= column <= 62:
+                    char = "*"
+                elif 63 <= column <= 67:
+                    char = "+"
+                elif 68 <= column <= 69:
+                    char = "*"
+                elif 70 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 28 ----------
+            elif row == 28:
+                if 0 <= column <= 16:
+                    char = "@"
+                elif 17 <= column <= 18:
+                    char = "%"
+                elif column == 19:
+                    char = "*"
+                elif 20 <= column <= 21:
+                    char = "="
+                elif 22 <= column <= 24:
+                    char = "-"
+                elif 25 <= column <= 26:
+                    char = ":"
+                elif 27 <= column <= 34:
+                    char = "-"
+                elif 35 <= column <= 39:
+                    char = "="
+                elif 40 <= column <= 50:
+                    char = "-"
+                elif 51 <= column <= 52:
+                    char = "="
+                elif 53 <= column <= 54:
+                    char = "+"
+                elif 55 <= column <= 61:
+                    char = "*"
+                elif 62 <= column <= 68:
+                    char = "+"
+                elif column == 69:
+                    char = "*"
+                elif column == 70:
+                    char = "%"
+                elif 71 <= column <= 79:
+                    char = "@"
+
+            # ---------- ROW 29 ----------
+            elif row == 29:
+                if 0 <= column <= 11:
+                    char = "@"
+                elif column == 12:
+                    char = "%"
+                elif 13 <= column <= 15:
+                    char = "@"
+                elif 16 <= column <= 17:
+                    char = "%"
+                elif column == 18:
+                    char = "#"
+                elif column == 19:
+                    char = "+"
+                elif 20 <= column <= 21:
+                    char = "="
+                elif 22 <= column <= 24:
+                    char = "-"
+                elif 25 <= column <= 28:
+                    char = ":"
+                elif 29 <= column <= 34:
+                    char = "-"
+                elif 35 <= column <= 36:
+                    char = "="
+                elif 37 <= column <= 38:
+                    char = "-"
+                elif column == 39:
+                    char = "="
+                elif 40 <= column <= 47:
+                    char = "-"
+                elif 48 <= column <= 49:
+                    char = "="
+                elif column == 50:
+                    char = "+"
+                elif 51 <= column <= 59:
+                    char = "*"
+                elif 60 <= column <= 68:
+                    char = "+"
+                elif column == 69:
+                    char = "*"
+                elif column == 70:
+                    char = "#"
+                elif column == 71:
+                    char = "%"
+                elif 72 <= column <= 78:
+                    char = "@"
+                elif column == 79:
+                    char = "%"
+
+            # ---------- ROW 30 ----------
+            elif row == 30:
+                if column == 0:
+                    char = "%"
+                elif 1 <= column <= 6:
+                    char = "@"
+                elif 7 <= column <= 9:
+                    char = "%"
+                elif 10 <= column <= 11:
+                    char = "#"
+                elif 12 <= column <= 13:
+                    char = "%"
+                elif column == 14:
+                    char = "#"
+                elif 15 <= column <= 17:
+                    char = "%"
+                elif column == 18:
+                    char = "#"
+                elif 19 <= column <= 22:
+                    char = "="
+                elif 23 <= column <= 27:
+                    char = "-"
+                elif 28 <= column <= 32:
+                    char = ":"
+                elif 33 <= column <= 38:
+                    char = "-"
+                elif 39 <= column <= 41:
+                    char = "="
+                elif 42 <= column <= 43:
+                    char = "-"
+                elif column == 44:
+                    char = "+"
+                elif column == 45:
+                    char = "*"
+                elif column == 46:
+                    char = "#"
+                elif column == 47:
+                    char = "%"
+                elif 48 <= column <= 52:
+                    char = "#"
+                elif 53 <= column <= 55:
+                    char = "%"
+                elif column == 56:
+                    char = "#"
+                elif 57 <= column <= 63:
+                    char = "*"
+                elif 64 <= column <= 66:
+                    char = "+"
+                elif 67 <= column <= 69:
+                    char = "*"
+                elif column == 70:
+                    char = "#"
+                elif 71 <= column <= 72:
+                    char = "%"
+                elif 73 <= column <= 76:
+                    char = "@"
+                elif column == 77:
+                    char = "#"
+                elif column == 78:
+                    char = "*"
+                elif column == 79:
+                    char = "+"
+
+                        # ---------- ROW 31 ----------
+            elif row == 31:
+                if column == 0: char = "%"
+                elif 1 <= column <= 6: char = "@"
+                elif column == 7: char = "#"
+                elif column == 8: char = "%"
+                elif column == 9: char = "*"
+                elif 10 <= column <= 11: char = "+"
+                elif 12 <= column <= 15: char = "#"
+                elif 16 <= column <= 17: char = "*"
+                elif column == 18: char = "+"
+                elif 19 <= column <= 24: char = "="
+                elif 25 <= column <= 38: char = "-"
+                elif 39 <= column <= 43: char = "="
+                elif column == 44: char = "*"
+                elif column == 45: char = "#"
+                elif column == 46: char = "*"
+                elif 47 <= column <= 48: char = "+"
+                elif column == 49: char = "*"
+                elif column == 50: char = "#"
+                elif column == 51: char = "%"
+                elif 52 <= column <= 54: char = "#"
+                elif column == 55: char = "%"
+                elif column == 56: char = "#"
+                elif 57 <= column <= 69: char = "*"
+                elif 70 <= column <= 72: char = "#"
+                elif 73 <= column <= 75: char = "@"
+                elif column == 76: char = "%"
+                elif column == 77: char = "*"
+                elif column == 78: char = "="
+                elif column == 79: char = "+"
+
+            # ---------- ROW 32 ----------
+            elif row == 32:
+                if 0 <= column <= 1: char = "%"
+                elif 2 <= column <= 6: char = "@"
+                elif 7 <= column <= 8: char = "#"
+                elif column == 9: char = "*"
+                elif column == 10: char = "+"
+                elif column == 11: char = "="
+                elif column == 12: char = "*"
+                elif column == 13: char = "#"
+                elif column == 14: char = "%"
+                elif column == 15: char = "#"
+                elif column == 16: char = "+"
+                elif 17 <= column <= 19: char = "="
+                elif column == 20: char = "+"
+                elif 21 <= column <= 29: char = "="
+                elif 30 <= column <= 38: char = "-"
+                elif column == 39: char = "="
+                elif 40 <= column <= 44: char = "-"
+                elif 45 <= column <= 48: char = "="
+                elif 49 <= column <= 69: char = "*"
+                elif column == 70: char = "#"
+                elif column == 71: char = "%"
+                elif column == 72: char = "#"
+                elif 73 <= column <= 75: char = "%"
+                elif column == 76: char = "#"
+                elif column == 77: char = "="
+                elif 78 <= column <= 79: char = "-"
+
+            # ---------- ROW 33 ----------
+            elif row == 33:
+                if 0 <= column <= 1: char = "%"
+                elif 2 <= column <= 6: char = "@"
+                elif column == 7: char = "%"
+                elif 8 <= column <= 9: char = "*"
+                elif column == 10: char = "+"
+                elif column == 11: char = "="
+                elif column == 12: char = "*"
+                elif 13 <= column <= 14: char = "#"
+                elif column == 15: char = "*"
+                elif 16 <= column <= 17: char = "-"
+                elif 18 <= column <= 24: char = "="
+                elif column == 25: char = "+"
+                elif 26 <= column <= 30: char = "="
+                elif 31 <= column <= 44: char = "-"
+                elif 45 <= column <= 48: char = "="
+                elif column == 49: char = "+"
+                elif 50 <= column <= 51: char = "*"
+                elif 52 <= column <= 53: char = "+"
+                elif 54 <= column <= 57: char = "*"
+                elif 58 <= column <= 59: char = "+"
+                elif 60 <= column <= 68: char = "*"
+                elif 69 <= column <= 72: char = "#"
+                elif 73 <= column <= 74: char = "%"
+                elif 75 <= column <= 77: char = "="
+                elif 78 <= column <= 79: char = "-"
+
+            # ---------- ROW 34 ----------
+            elif row == 34:
+                if column == 0: char = "#"
+                elif 1 <= column <= 3: char = "%"
+                elif 4 <= column <= 6: char = "@"
+                elif 7 <= column <= 8: char = "%"
+                elif column == 9: char = "+"
+                elif column == 10: char = "*"
+                elif column == 11: char = "="
+                elif 12 <= column <= 13: char = "#"
+                elif column == 14: char = "*"
+                elif column == 15: char = "="
+                elif column == 16: char = "+"
+                elif 17 <= column <= 30: char = "="
+                elif 31 <= column <= 42: char = "-"
+                elif 43 <= column <= 45: char = "="
+                elif 46 <= column <= 47: char = "-"
+                elif column == 48: char = "="
+                elif 49 <= column <= 52: char = "+"
+                elif column == 53: char = "*"
+                elif column == 54: char = "#"
+                elif 55 <= column <= 56: char = "*"
+                elif column == 57: char = "+"
+                elif 58 <= column <= 71: char = "*"
+                elif 72 <= column <= 74: char = "#"
+                elif column == 75: char = "-"
+                elif column == 76: char = ":"
+                elif 77 <= column <= 79: char = "-"
+
+            # ---------- ROW 35 ----------
+            elif row == 35:
+                if 0 <= column <= 3: char = "%"
+                elif 4 <= column <= 6: char = "@"
+                elif 7 <= column <= 9: char = "%"
+                elif column == 10: char = "+"
+                elif column == 11: char = "*"
+                elif 12 <= column <= 13: char = "+"
+                elif 14 <= column <= 30: char = "="
+                elif 31 <= column <= 43: char = "-"
+                elif column == 44: char = "+"
+                elif 45 <= column <= 48: char = "*"
+                elif 49 <= column <= 52: char = "#"
+                elif column == 53: char = "%"
+                elif 54 <= column <= 58: char = "#"
+                elif 59 <= column <= 71: char = "*"
+                elif column == 72: char = "+"
+                elif 73 <= column <= 74: char = "%"
+                elif 75 <= column <= 76: char = "+"
+                elif column == 77: char = "*"
+                elif column == 78: char = "+"
+                elif column == 79: char = ":"
+
+            # ---------- ROW 36 ----------
+            elif row == 36:
+                if 0 <= column <= 4: char = "%"
+                elif 5 <= column <= 6: char = "@"
+                elif 7 <= column <= 10: char = "%"
+                elif column == 11: char = "+"
+                elif 12 <= column <= 13: char = "="
+                elif 14 <= column <= 15: char = "-"
+                elif 16 <= column <= 17: char = "="
+                elif column == 18: char = "-"
+                elif 19 <= column <= 29: char = "="
+                elif 30 <= column <= 37: char = "-"
+                elif 38 <= column <= 39: char = "="
+                elif 40 <= column <= 41: char = "+"
+                elif column == 42: char = "*"
+                elif 43 <= column <= 47: char = "#"
+                elif column == 48: char = "*"
+                elif 49 <= column <= 55: char = "#"
+                elif 56 <= column <= 59: char = "%"
+                elif 60 <= column <= 61: char = "#"
+                elif 62 <= column <= 69: char = "*"
+                elif column == 70: char = "+"
+                elif column == 71: char = "*"
+                elif column == 72: char = "#"
+                elif 73 <= column <= 75: char = "%"
+                elif column == 76: char = "#"
+                elif column == 77: char = "="
+                elif column == 78: char = "-"
+                elif column == 79: char = ":"
+
+            # ---------- ROW 37 ----------
+            elif row == 37:
+                if 0 <= column <= 2: char = "%"
+                elif 3 <= column <= 8: char = "@"
+                elif 9 <= column <= 11: char = "%"
+                elif column == 12: char = "#"
+                elif column == 13: char = "+"
+                elif column == 14: char = "="
+                elif 15 <= column <= 18: char = "+"
+                elif 19 <= column <= 20: char = "*"
+                elif column == 21: char = "+"
+                elif 22 <= column <= 28: char = "="
+                elif 29 <= column <= 36: char = "-"
+                elif column == 37: char = "="
+                elif 38 <= column <= 39: char = "+"
+                elif 40 <= column <= 42: char = "*"
+                elif 43 <= column <= 45: char = "="
+                elif 46 <= column <= 47: char = "-"
+                elif 48 <= column <= 50: char = "="
+                elif 51 <= column <= 54: char = "+"
+                elif 55 <= column <= 59: char = "*"
+                elif 60 <= column <= 62: char = "#"
+                elif 63 <= column <= 68: char = "*"
+                elif column == 69: char = "#"
+                elif column == 70: char = "*"
+                elif column == 71: char = "#"
+                elif 72 <= column <= 76: char = "%"
+                elif column == 77: char = "*"
+                elif column == 78: char = "+"
+                elif column == 79: char = "*"
+
+            # ---------- ROW 38 ----------
+            elif row == 38:
+                if 0 <= column <= 4: char = "%"
+                elif 5 <= column <= 10: char = "@"
+                elif 11 <= column <= 16: char = "%"
+                elif 17 <= column <= 20: char = "#"
+                elif column == 21: char = "*"
+                elif column == 22: char = "+"
+                elif 23 <= column <= 26: char = "="
+                elif column == 27: char = "-"
+                elif column == 28: char = "="
+                elif 29 <= column <= 34: char = "-"
+                elif 35 <= column <= 36: char = "="
+                elif column == 37: char = "+"
+                elif 38 <= column <= 39: char = "="
+                elif 40 <= column <= 42: char = "-"
+                elif 43 <= column <= 45: char = "="
+                elif 46 <= column <= 47: char = "+"
+                elif column == 48: char = "*"
+                elif column == 49: char = "#"
+                elif 50 <= column <= 53: char = "%"
+                elif 54 <= column <= 58: char = "#"
+                elif 59 <= column <= 62: char = "*"
+                elif column == 63: char = "#"
+                elif 64 <= column <= 68: char = "*"
+                elif 69 <= column <= 70: char = "%"
+                elif 71 <= column <= 72: char = "@"
+                elif 73 <= column <= 77: char = "%"
+                elif 78 <= column <= 79: char = "#"
+
+            # ---------- ROW 39 ----------
+            elif row == 39:
+                if column == 0: char = "#"
+                elif 1 <= column <= 2: char = "%"
+                elif 3 <= column <= 9: char = "@"
+                elif column == 10: char = "%"
+                elif 11 <= column <= 13: char = "@"
+                elif 14 <= column <= 18: char = "%"
+                elif 19 <= column <= 20: char = "#"
+                elif column == 21: char = "*"
+                elif 22 <= column <= 23: char = "+"
+                elif 24 <= column <= 28: char = "="
+                elif 29 <= column <= 32: char = "-"
+                elif 33 <= column <= 38: char = "="
+                elif column == 39: char = "-"
+                elif 40 <= column <= 41: char = "="
+                elif 42 <= column <= 45: char = "+"
+                elif column == 46: char = "*"
+                elif 47 <= column <= 59: char = "#"
+                elif 60 <= column <= 61: char = "*"
+                elif 62 <= column <= 64: char = "#"
+                elif 65 <= column <= 67: char = "*"
+                elif column == 68: char = "#"
+                elif 69 <= column <= 72: char = "@"
+                elif 73 <= column <= 76: char = "%"
+                elif column == 77: char = "#"
+                elif column == 78: char = "="
+                elif column == 79: char = "-"
+
+            # ---------- ROW 40 ----------
+            elif row == 40:
+                if column == 0: char = "*"
+                elif 1 <= column <= 3: char = "%"
+                elif 4 <= column <= 16: char = "@"
+                elif 17 <= column <= 18: char = "%"
+                elif column == 19: char = "*"
+                elif 20 <= column <= 25: char = "+"
+                elif 26 <= column <= 50: char = "="
+                elif 51 <= column <= 53: char = "+"
+                elif 54 <= column <= 59: char = "*"
+                elif column == 60: char = "#"
+                elif 61 <= column <= 62: char = "*"
+                elif 63 <= column <= 65: char = "#"
+                elif column == 66: char = "*"
+                elif column == 67: char = "#"
+                elif column == 68: char = "%"
+                elif 69 <= column <= 72: char = "@"
+                elif 73 <= column <= 74: char = "%"
+                elif column == 75: char = "#"
+                elif column == 76: char = "="
+                elif 77 <= column <= 78: char = "-"
+                elif column == 79: char = ":"
+
+                        # ---------- ROW 41 ----------
+            elif row == 41:
+                if column == 0: char = "*"
+                elif column == 1: char = "#"
+                elif 2 <= column <= 3: char = "%"
+                elif 4 <= column <= 17: char = "@"
+                elif column == 18: char = "%"
+                elif column == 19: char = "#"
+                elif 20 <= column <= 29: char = "+"
+                elif 30 <= column <= 40: char = "="
+                elif 41 <= column <= 48: char = "-"
+                elif column == 49: char = "="
+                elif 50 <= column <= 52: char = "+"
+                elif 53 <= column <= 55: char = "*"
+                elif 56 <= column <= 57: char = "+"
+                elif 58 <= column <= 61: char = "*"
+                elif 62 <= column <= 66: char = "#"
+                elif column == 67: char = "%"
+                elif 68 <= column <= 72: char = "@"
+                elif 73 <= column <= 74: char = "%"
+                elif column == 75: char = "#"
+                elif column == 76: char = "+"
+                elif column == 77: char = "="
+                elif column == 78: char = "-"
+                elif column == 79: char = ":"
+
+            # ---------- ROW 42 ----------
+            elif row == 42:
+                if column == 0: char = "*"
+                elif column == 1: char = "#"
+                elif 2 <= column <= 4: char = "%"
+                elif 5 <= column <= 17: char = "@"
+                elif 18 <= column <= 19: char = "%"
+                elif column == 20: char = "*"
+                elif 21 <= column <= 31: char = "+"
+                elif column == 32: char = "="
+                elif column == 33: char = "+"
+                elif 34 <= column <= 47: char = "="
+                elif 48 <= column <= 49: char = "+"
+                elif 50 <= column <= 53: char = "*"
+                elif column == 54: char = "#"
+                elif 55 <= column <= 57: char = "*"
+                elif column == 58: char = "#"
+                elif 59 <= column <= 60: char = "*"
+                elif 61 <= column <= 65: char = "#"
+                elif column == 66: char = "*"
+                elif 67 <= column <= 71: char = "@"
+                elif 72 <= column <= 74: char = "%"
+                elif column == 75: char = "#"
+                elif column == 76: char = "+"
+                elif 77 <= column <= 78: char = "-"
+                elif column == 79: char = ":"
+
+            # ---------- ROW 43 ----------
+            elif row == 43:
+                if 0 <= column <= 1: char = "*"
+                elif 2 <= column <= 4: char = "%"
+                elif 5 <= column <= 17: char = "@"
+                elif 18 <= column <= 19: char = "%"
+                elif column == 20: char = "*"
+                elif 21 <= column <= 43: char = "+"
+                elif 44 <= column <= 48: char = "*"
+                elif 49 <= column <= 64: char = "#"
+                elif 65 <= column <= 66: char = "*"
+                elif 67 <= column <= 71: char = "@"
+                elif 72 <= column <= 74: char = "%"
+                elif column == 75: char = "#"
+                elif column == 76: char = "="
+                elif 77 <= column <= 78: char = "-"
+                elif column == 79: char = ":"
+
+            # ---------- ROW 44 ----------
+            elif row == 44:
+                if column == 0: char = "+"
+                elif column == 1: char = "*"
+                elif column == 2: char = "#"
+                elif 3 <= column <= 4: char = "%"
+                elif 5 <= column <= 18: char = "@"
+                elif column == 19: char = "%"
+                elif column == 20: char = "*"
+                elif 21 <= column <= 32: char = "+"
+                elif 33 <= column <= 35: char = "*"
+                elif column == 36: char = "+"
+                elif column == 37: char = "*"
+                elif column == 38: char = "+"
+                elif 39 <= column <= 43: char = "*"
+                elif 44 <= column <= 63: char = "#"
+                elif column == 64: char = "*"
+                elif column == 65: char = "#"
+                elif column == 66: char = "*"
+                elif column == 67: char = "%"
+                elif 68 <= column <= 71: char = "@"
+                elif 72 <= column <= 73: char = "%"
+                elif column == 74: char = "#"
+                elif column == 75: char = "*"
+                elif 76 <= column <= 79: char = "-"
+
+            # ---------- ROW 45 ----------
+            elif row == 45:
+                if 0 <= column <= 3: char = "*"
+                elif column == 4: char = "#"
+                elif column == 5: char = "%"
+                elif 6 <= column <= 18: char = "@"
+                elif column == 19: char = "%"
+                elif column == 20: char = "*"
+                elif 21 <= column <= 23: char = "+"
+                elif 24 <= column <= 28: char = "="
+                elif 29 <= column <= 34: char = "+"
+                elif 35 <= column <= 41: char = "*"
+                elif 42 <= column <= 63: char = "#"
+                elif 64 <= column <= 66: char = "*"
+                elif column == 67: char = "%"
+                elif column == 68: char = "@"
+                elif 69 <= column <= 73: char = "%"
+                elif column == 74: char = "#"
+                elif column == 75: char = "="
+                elif 76 <= column <= 79: char = "-"
+
+            # ---------- ROW 46 ----------
+            elif row == 46:
+                if 0 <= column <= 4: char = "*"
+                elif 5 <= column <= 6: char = "#"
+                elif column == 7: char = "%"
+                elif 8 <= column <= 18: char = "@"
+                elif column == 19: char = "%"
+                elif column == 20: char = "#"
+                elif 21 <= column <= 24: char = "+"
+                elif 25 <= column <= 29: char = "="
+                elif 30 <= column <= 34: char = "+"
+                elif 35 <= column <= 41: char = "*"
+                elif 42 <= column <= 48: char = "#"
+                elif column == 49: char = "%"
+                elif 50 <= column <= 63: char = "#"
+                elif 64 <= column <= 66: char = "*"
+                elif 67 <= column <= 69: char = "#"
+                elif column == 70: char = "*"
+                elif column == 71: char = "+"
+                elif 72 <= column <= 79: char = "="
+
+            # ---------- ROW 47 ----------
+            elif row == 47:
+                if 0 <= column <= 3: char = "*"
+                elif 4 <= column <= 7: char = "#"
+                elif column == 8: char = "%"
+                elif 9 <= column <= 17: char = "@"
+                elif 18 <= column <= 19: char = "%"
+                elif column == 20: char = "#"
+                elif 21 <= column <= 22: char = "+"
+                elif 23 <= column <= 25: char = "="
+                elif column == 26: char = "+"
+                elif 27 <= column <= 30: char = "="
+                elif 31 <= column <= 34: char = "+"
+                elif 35 <= column <= 40: char = "*"
+                elif 41 <= column <= 63: char = "#"
+                elif 64 <= column <= 66: char = "*"
+                elif 67 <= column <= 71: char = "+"
+                elif 72 <= column <= 73: char = "="
+                elif column == 74: char = "+"
+                elif 75 <= column <= 79: char = "="
+
+            # ---------- ROW 48 ----------
+            elif row == 48:
+                if 0 <= column <= 2: char = "*"
+                elif 3 <= column <= 9: char = "#"
+                elif column == 10: char = "%"
+                elif 11 <= column <= 12: char = "@"
+                elif 13 <= column <= 16: char = "%"
+                elif 17 <= column <= 19: char = "#"
+                elif column == 20: char = "*"
+                elif column == 21: char = "+"
+                elif 22 <= column <= 35: char = "="
+                elif 36 <= column <= 37: char = "+"
+                elif 38 <= column <= 40: char = "*"
+                elif 41 <= column <= 49: char = "#"
+                elif 50 <= column <= 51: char = "%"
+                elif 52 <= column <= 62: char = "#"
+                elif 63 <= column <= 66: char = "*"
+                elif 67 <= column <= 79: char = "+"
+
+            # ---------- ROW 49 ----------
+            elif row == 49:
+                if 0 <= column <= 2: char = "*"
+                elif 3 <= column <= 10: char = "#"
+                elif 11 <= column <= 13: char = "%"
+                elif column == 14: char = "#"
+                elif 15 <= column <= 16: char = "-"
+                elif column == 17: char = "#"
+                elif column == 18: char = "%"
+                elif column == 19: char = "#"
+                elif column == 20: char = "+"
+                elif 21 <= column <= 38: char = "="
+                elif 39 <= column <= 40: char = "+"
+                elif 41 <= column <= 42: char = "*"
+                elif 43 <= column <= 45: char = "#"
+                elif 46 <= column <= 52: char = "%"
+                elif 53 <= column <= 62: char = "#"
+                elif 63 <= column <= 65: char = "*"
+                elif column == 66: char = "+"
+                elif column == 67: char = "="
+                elif column == 68: char = "-"
+                elif 69 <= column <= 79: char = "+"
+
+            # ---------- ROW 50 ----------
+            elif row == 50:
+                if 0 <= column <= 2: char = "*"
+                elif 3 <= column <= 12: char = "#"
+                elif column == 13: char = "*"
+                elif 14 <= column <= 15: char = "."
+                elif column == 16: char = "="
+                elif column == 17: char = "#"
+                elif column == 18: char = "+"
+                elif 19 <= column <= 38: char = "="
+                elif 39 <= column <= 40: char = "+"
+                elif 41 <= column <= 42: char = "*"
+                elif 43 <= column <= 45: char = "#"
+                elif 46 <= column <= 50: char = "%"
+                elif 51 <= column <= 61: char = "#"
+                elif 62 <= column <= 65: char = "*"
+                elif 66 <= column <= 67: char = "+"
+                elif 68 <= column <= 71: char = ":"
+                elif 72 <= column <= 73: char = "-"
+                elif 74 <= column <= 79: char = "+"
+
+            # ---------- ROW 51 ----------
+            elif row == 51:
+                if 0 <= column <= 8: char = "*"
+                elif column == 9: char = "="
+                elif 10 <= column <= 11: char = ":"
+                elif 12 <= column <= 15: char = "."
+                elif column == 16: char = "-"
+                elif column == 17: char = "+"
+                elif 18 <= column <= 23: char = "="
+                elif 24 <= column <= 28: char = "-"
+                elif 29 <= column <= 37: char = "="
+                elif 38 <= column <= 39: char = "+"
+                elif 40 <= column <= 42: char = "*"
+                elif 43 <= column <= 59: char = "#"
+                elif 60 <= column <= 65: char = "*"
+                elif 66 <= column <= 67: char = "+"
+                elif 68 <= column <= 76: char = ":"
+                elif column == 77: char = "="
+                elif column == 78: char = "-"
+                elif column == 79: char = "="
+
+            # ---------- ROW 52 ----------
+            elif row == 52:
+                if 0 <= column <= 2: char = "*"
+                elif column == 3: char = "+"
+                elif column == 4: char = "-"
+                elif column == 5: char = ":"
+                elif 6 <= column <= 16: char = "."
+                elif 17 <= column <= 18: char = "="
+                elif 19 <= column <= 20: char = "-"
+                elif 21 <= column <= 22: char = "="
+                elif 23 <= column <= 31: char = "-"
+                elif 32 <= column <= 37: char = "="
+                elif 38 <= column <= 40: char = "+"
+                elif 41 <= column <= 42: char = "*"
+                elif 43 <= column <= 57: char = "#"
+                elif 58 <= column <= 65: char = "*"
+                elif column == 66: char = "+"
+                elif column == 67: char = "-"
+                elif 68 <= column <= 69: char = ":"
+                elif column == 70: char = "."
+                elif 71 <= column <= 73: char = ":"
+                elif column == 74: char = "-"
+                elif column == 75: char = ":"
+                elif column == 76: char = "."
+                elif 77 <= column <= 78: char = ":"
+                elif column == 79: char = "-"
+
+            line += char
+
+        print(line)
+
+ 
+generate_handmade_ascii()
