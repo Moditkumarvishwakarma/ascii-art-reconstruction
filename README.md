@@ -1,137 +1,78 @@
-ASCII Art Reconstruction using Run-Length Decoding (Python)
+🎨 ASCII ART RECONSTRUCTION
+==========================
 
-📌 Project Overview
+👋 About the Project
+-------------------
+This project is about creating an ASCII art image using Python.
+Instead of using any ready-made patterns, the image is built by
+deciding which character should appear at each row and column.
 
-This project reconstructs a large ASCII art image from pre-analyzed data using pure Python loops and conditions.
+The idea behind this project is to understand how text-based
+images work and how simple logic can be used to draw pictures
+inside the terminal.
 
-The ASCII art is stored in a compressed format where each row is represented as a list of tuples:
 
-(count, character)
+📁 Project Files
+---------------
+📄 ascii.py  
+    The main Python file. It contains the logic that prints the
+    ASCII art using row and column conditions.
 
-This technique is known as Run-Length Encoding (RLE). The program performs the reverse process, decoding, to rebuild the original ASCII image.
+📄 ascii_art.txt  
+    Stores the final ASCII art output.
 
-🧠What is Run-Length Decoding?
+🖼️ diego_maradona.jpg  
+    The original image used as a reference while creating the
+    ASCII version.
 
-Instead of storing characters repeatedly like this:
+📄 .gitignore  
+    Used to ignore unnecessary files in the Git repository.
 
-#####%%%%%***
+📄 README.md 
+    This file explains the project and how to run it.
 
-We store them as:
-
-[(5, '#'), (5, '%'), (3, '*')]
-
-This saves space and makes large ASCII images easier to analyze and rebuild.
-
-📂 Project Structure
-ascii-art-reconstruction/
-│
-├── ascii.py   # Main Python file
-├── README.md                 # Project documentation
-
-🧾 Data Format Explanation
-
-Each row of the ASCII art is stored as:
-
-[(count1, symbol1), (count2, symbol2), ...]
-
-Example:
-[(35,'#'), (3,'%'), (3,'#')]
-
-This means:
-
-Print # 35 times
-
-Then % 3 times
-
-Then # 3 times
 
 ⚙️ How the Program Works
-
-The program follows three simple loops:
-
-🔁 Loop 1 – Row Loop
-
-Iterates through each row of compressed data.
-
-🔁 Loop 2 – Group Loop
-
-Iterates through each (count, symbol) tuple in the row.
-
-🔁 Loop 3 – Character Loop
-
-Repeats the symbol count times and appends it to the output line.
-
-After processing all groups, the complete row is printed.
-
-▶️ How to Run the Program
-1️⃣ Make sure Python is installed
-
-Check using:
-
-python --version
-
-2️⃣ Run the script
-python ascii_reconstruction.py
-
-3️⃣ Output
-
-The terminal will print the fully reconstructed ASCII art, line by line.
-
-🧩 Key Function Used
-def reconstruct_ascii_art():
-
-This function:
-
-Reads compressed ASCII data
-
-Decodes each row using loops
-
-Prints the final ASCII image
-
-✅ Features
-
-- Uses only loops and conditions
-- No external libraries
-- Beginner-friendly logic
-- Handles large ASCII images
-- Demonstrates real image compression logic
-
-🎯 Learning Outcomes
-
-By studying this project, you will learn:
-
-Run-Length Encoding and Decoding
-
-Nested loops in Python
-
-String reconstruction
-
-ASCII image processing
-
-How compression works internally
+-----------------------
+🔹 The program goes through rows and columns one by one  
+🔹 For each position, it checks conditions and picks a character  
+🔹 Characters are combined to form a full line  
+🔹 Each line is printed to the terminal  
+🔹 All lines together form the ASCII image  
 
 
-🚀 Possible Enhancements
+▶️ How to Run
+------------
+1️⃣ Open a terminal or command prompt  
+2️⃣ Navigate to the project folder  
+3️⃣ Run the command:
 
-Save reconstructed art to a .txt file
+   python ascii.py
 
-Add re-encoding (compression) feature
 
-Visualize character density
+🖨️ Output
+---------
+✨ When the program runs, it prints a 52-row ASCII art image in
+the terminal.
 
-Animate ASCII reconstruction
+📄 The same output can also be saved in `ascii_art.txt`.
 
-Add color support (ANSI codes)
 
-👤 Author
+📚 What You Learn from This Project
+---------------------------------
+✔ Working with nested loops  
+✔ Using `if` and `elif` conditions effectively  
+✔ Understanding text-based image rendering  
+✔ Practicing Git and GitHub workflow  
 
-Author
 
+👨‍💻 Author
+---------
 Modit Kumar Vishwakarma
 
-Learning Python, logic building, and ASCII image processing.
 
-
-
+🏷️ Version
+----------
+v1.0
 
 
