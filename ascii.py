@@ -1,13 +1,10 @@
-# --- ASCII ART RECONSTRUCTION ---
-# Method: Run-Length Decoding (Loops & Conditions)
-# Data Format: Each row contains a list of tuples: (count, symbol)
 
 def generate_handmade_ascii():
     for row in range(1, 53):
         line = ""
 
         for column in range(80):
-            char = " "   # default space (IMPORTANT)
+            char = " "  
 
             # ---------- ROW 1 ----------
             if row == 1:
