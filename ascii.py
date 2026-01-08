@@ -1,5 +1,5 @@
 
-def generate_handmade_ascii():
+def generate_ascii():
     for row in range(1, 53):
         line = ""
 
@@ -1543,4 +1543,4 @@ def generate_handmade_ascii():
         print(line)
 
  
-generate_handmade_ascii()
+generate_ascii()
